@@ -29,7 +29,9 @@ export default function Keypad(props) {
 
   let solutionToExpr = () => {
     let expr = displayVal;
-    if (expr.includes("+")) {
+    if (expr === "Invalid Expression") {
+      changeDisplayVal("Invalid Expression");
+    } else if (expr.includes("+")) {
       let exprArr = expr.split("+");
       if (exprArr.length === 2) {
         let res = parseInt(exprArr[0], 10) + parseInt(exprArr[1], 10);
