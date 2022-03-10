@@ -32,11 +32,11 @@ body {
 }
 
 .display {
-  padding: 16px;
+  padding: 28px;
   text-align: right;
   background-color: var(--dark);
   color: var(--light);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 300;
 }
 
