@@ -1,24 +1,11 @@
 import Button from "./Button.jsx";
 import { useContext } from "react";
 import { DisplayContext } from "../App.js";
+import "../styles.css";
 
-export default function Keypad(props) {
-  let btnArr = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "0",
-    "+",
-    "-",
-    "x",
-    "/"
-  ];
+export default function Keypad() {
+  let btnOprArr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."];
+  let btnOpnArr = ["+", "-", "x", "/"];
 
   let { displayVal, changeDisplayVal } = useContext(DisplayContext);
   console.log("Display Val: " + displayVal);
@@ -29,39 +16,37 @@ export default function Keypad(props) {
 
   let solutionToExpr = () => {
     let expr = displayVal;
-    if (expr === "Invalid Expression") {
-      changeDisplayVal("Invalid Expression");
-    } else if (expr.includes("+")) {
+    if (expr.includes("+")) {
       let exprArr = expr.split("+");
-      if (exprArr.length === 2) {
-        let res = parseInt(exprArr[0], 10) + parseInt(exprArr[1], 10);
-        changeDisplayVal(res);
-      } else {
+      let res = parseFloat(exprArr[0], 10) + parseFloat(exprArr[1], 10);
+      if (isNaN(res)) {
         changeDisplayVal("Invalid Expression");
+      } else {
+        changeDisplayVal(res);
       }
     } else if (expr.includes("-")) {
       let exprArr = expr.split("-");
-      if (exprArr.length === 2) {
-        let res = parseInt(exprArr[0], 10) - parseInt(exprArr[1], 10);
-        changeDisplayVal(res);
-      } else {
+      let res = parseFloat(exprArr[0], 10) - parseFloat(exprArr[1], 10);
+      if (isNaN(res)) {
         changeDisplayVal("Invalid Expression");
+      } else {
+        changeDisplayVal(res);
       }
     } else if (expr.includes("x")) {
       let exprArr = expr.split("x");
-      if (exprArr.length === 2) {
-        let res = parseInt(exprArr[0], 10) * parseInt(exprArr[1], 10);
-        changeDisplayVal(res);
-      } else {
+      let res = parseFloat(exprArr[0], 10) * parseFloat(exprArr[1], 10);
+      if (isNaN(res)) {
         changeDisplayVal("Invalid Expression");
+      } else {
+        changeDisplayVal(res);
       }
     } else if (expr.includes("/")) {
       let exprArr = expr.split("/");
-      if (exprArr.length === 2) {
-        let res = parseInt(exprArr[0], 10) / parseInt(exprArr[1], 10);
-        changeDisplayVal(res);
-      } else {
+      let res = parseFloat(exprArr[0], 10) / parseFloat(exprArr[1], 10);
+      if (isNaN(res)) {
         changeDisplayVal("Invalid Expression");
+      } else {
+        changeDisplayVal(res);
       }
     } else {
       changeDisplayVal("Invalid Expression");
@@ -69,40 +54,17 @@ export default function Keypad(props) {
   };
 
   return (
-    <div>
-      {btnArr.map((ele, idx) => {
-        return (
-          <>
-            <Button val={ele} id={idx} onClick={btnFunc} />
-          </>
-        );
-      })}
+    <>
+      <div className="operators">
+        {btnOpnArr.map((ele, idx) => {
+          return (
+            <>
+              <Button val={ele} id={idx} onClick={btnFunc} />
+            </>
+          );
+        })}
 
-      <button
-        style={{
-          minWidth: "100px",
-          marginLeft: "2px",
-          marginRight: "2px",
-          marginBottom: "2px",
-          background: "#fdcb6e",
-          borderColor: "#fdcb6e",
-          color: "#d63031",
-          fontWeight: "bold"
-        }}
-        onClick={solutionToExpr}
-      >
-        =
-      </button>
-
-      <div>
         <button
-          style={{
-            minWidth: "300px",
-            margin: "10px",
-            background: "#00b894",
-            borderColor: "#00b894",
-            color: "white"
-          }}
           onClick={() => {
             changeDisplayVal("");
           }}
@@ -110,6 +72,18 @@ export default function Keypad(props) {
           Clear
         </button>
       </div>
-    </div>
+
+      <div className="digits">
+        {btnOprArr.map((ele, idx) => {
+          return (
+            <>
+              <Button val={ele} id={idx} onClick={btnFunc} />
+            </>
+          );
+        })}
+
+        <button onClick={solutionToExpr}>=</button>
+      </div>
+    </>
   );
 }

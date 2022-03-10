@@ -1,3 +1,5 @@
+import "../styles.css";
+
 export default function Button(props) {
   let btnClick = () => {
     props.onClick(props.val);
@@ -5,17 +7,7 @@ export default function Button(props) {
 
   return (
     <>
-      <button
-        style={{
-          minWidth: "100px",
-          marginLeft: "2px",
-          marginRight: "2px",
-          marginBottom: "2px"
-        }}
-        onClick={btnClick}
-      >
-        {props.val}
-      </button>
+      <button onClick={btnClick}>{props.val}</button>
     </>
   );
 }
